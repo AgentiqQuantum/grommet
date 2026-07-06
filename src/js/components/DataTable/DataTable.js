@@ -153,10 +153,10 @@ const DataTable = ({
   // the data filtered and sorted, if needed
   // Note: onUpdate mode expects the data to be passed
   //   in completely filtered and sorted already.
-  const adjustedData = useMemo(
-    () => (onUpdate ? data : filterAndSortData(data, filters, onSearch, sort)),
-    [data, filters, onSearch, onUpdate, sort],
-  );
+const adjustedData = useMemo(
+        () => (onUpdate ? data : filterAndSortData(data.map((item) => Object.keys(item).reduce((acc, key) => { acc[key] = item[key] == null ? "" : item[key]; return acc }, {}) ), filters, onSearch, sort)),
+        [data, filters, onSearch, onUpdate, sort],
+    );
 
   // the values to put in the footer cells
   const footerValues = useMemo(
